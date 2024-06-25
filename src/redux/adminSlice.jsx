@@ -45,7 +45,7 @@ const adminSlice = createSlice({
                 state.loading = false;
                 state.message = action.payload.message;
                 state.admin = action.payload.user
-                state.isAuth = action.payload.success 
+                state.isAuth = action.payload.success
             })
             .addCase(adminLogin.rejected, (state, action) => {
                 state.loading = false;
@@ -75,7 +75,7 @@ const adminSlice = createSlice({
             })
             .addCase(getAllUsers.fulfilled, (state, action) => {
                 state.loading = false;
-                state.users = action.payload.users;
+                state.users = action.payload.users || [];
                 state.message = action.payload.message;
             })
             .addCase(getAllUsers.rejected, (state, action) => {
@@ -89,7 +89,7 @@ const adminSlice = createSlice({
             })
             .addCase(getAllDocuments.fulfilled, (state, action) => {
                 state.loading = false;
-                state.documents = action.payload.documents;
+                state.documents = action.payload.documents || [];
                 state.message = action.payload.message;
             })
             .addCase(getAllDocuments.rejected, (state, action) => {
