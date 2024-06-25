@@ -4,12 +4,13 @@ import axios from 'axios';
 
 import { Alert } from '../App';
 
+let baseUrl = 'http://account.meracacs.com'
 
 export const registerUser = createAsyncThunk(
     'auth/register',
     async (userData, { rejectWithValue }) => {
         try {
-            const response = await axios.post('/api/user/register', userData);
+            const response = await axios.post(baseUrl + '/api/user/register', userData);
             // console.log(response.data)
             return response.data;
         } catch (err) {
@@ -22,7 +23,7 @@ export const loginUser = createAsyncThunk(
     'auth/loginUser',
     async (credentials, { rejectWithValue, dispatch }) => {
         try {
-            const response = await axios.post('/api/user/login.php', credentials);
+            const response = await axios.post(baseUrl + '/api/user/login.php', credentials);
             // const token = response.data.token;
             // Dispatch verifyUser thunk with the token
             // dispatch(verifyUser(token))
@@ -42,7 +43,7 @@ export const verifyUser = createAsyncThunk(
     'auth/verifyUser',
     async (token, { rejectWithValue }) => {
         try {
-            const response = await axios.get('/api/user/auth', {
+            const response = await axios.get(baseUrl + '/api/user/auth', {
                 headers: {
                     Authorization: `${token}`,
                 },
@@ -62,7 +63,7 @@ export const logoutUser = createAsyncThunk(
     'auth/logoutUser',
     async (_, { rejectWithValue, dispatch }) => {
         try {
-            const response = await axios.post('/api/user/logout.php', {}, {
+            const response = await axios.post(baseUrl + '/api/user/logout.php', {}, {
                 withCredentials: true,
             });
             await Alert(response.data.success, response.data.message)
@@ -85,7 +86,7 @@ export const GetDocuments = createAsyncThunk(
     async (type, { rejectWithValue, dispatch }) => {
         try {
             let Url = type ? `/api/user/get/documents.php?type=${type}` : '/api/user/get/documents.php'
-            const response = await axios.get(Url, {
+            const response = await axios.get(baseUrl + Url, {
                 withCredentials: true,
             });
 
@@ -102,7 +103,7 @@ export const UploadDocuments = createAsyncThunk(
     async (data, { rejectWithValue }) => {
         try {
             const Url = `/api/user/upload/document.php`;
-            const response = await axios.post(Url, data, {
+            const response = await axios.post(baseUrl + Url, data, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -128,7 +129,7 @@ export const addClient = createAsyncThunk(
     async (data, { rejectWithValue }) => {
         try {
             const Url = `/api/admin/add/client.php`;
-            const response = await axios.post(Url, data, {
+            const response = await axios.post(baseUrl + Url, data, {
 
                 withCredentials: true,
             });
@@ -147,7 +148,7 @@ export const addEmployee = createAsyncThunk(
     async (data, { rejectWithValue }) => {
         try {
             const Url = `/api/admin/add/employee.php`;
-            const response = await axios.post(Url, data, {
+            const response = await axios.post(baseUrl + Url, data, {
 
                 withCredentials: true,
             });
@@ -166,7 +167,7 @@ export const adminLogin = createAsyncThunk(
     async (data, { rejectWithValue }) => {
         try {
             const Url = `/api/admin/login.php`;
-            const response = await axios.post(Url, data, {
+            const response = await axios.post(baseUrl + Url, data, {
                 withCredentials: true,
             });
             console.log('admin loggedin', response.data);
@@ -184,7 +185,7 @@ export const getAllUsers = createAsyncThunk(
     async (type, { rejectWithValue }) => {
         try {
             const Url = type ? `/api/admin/get/users.php?type=${type}` : `/api/admin/get/users.php`;
-            const response = await axios.get(Url, {
+            const response = await axios.get(baseUrl + Url, {
                 withCredentials: true,
             });
             console.log('admin users', response.data);
@@ -200,7 +201,7 @@ export const getAllDocuments = createAsyncThunk(
     async (type, { rejectWithValue }) => {
         try {
             const Url = type ? `/api/admin/get/documents.php?type=${type}` : `/api/admin/get/documents.php`;
-            const response = await axios.get(Url, {
+            const response = await axios.get(baseUrl + Url, {
                 withCredentials: true,
             });
             console.log('admin documents', response.data);
