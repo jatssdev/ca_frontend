@@ -8,7 +8,7 @@ export default defineConfig({
         target: 'http://account.meracacs.com',
         // target: 'http://localhost/ca',
         changeOrigin: true,
-        secure: false
+        secure: true
       }
     },
   },
