@@ -2,6 +2,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+import { Alert } from '../App';
+
 
 export const registerUser = createAsyncThunk(
     'auth/register',
@@ -24,9 +26,13 @@ export const loginUser = createAsyncThunk(
             // const token = response.data.token;
             // Dispatch verifyUser thunk with the token
             // dispatch(verifyUser(token))
-            console.log('thunk', response.data)
-            return response.data;
+
+            await Alert(response.data.success, response.data.message)
+            return response.data
+
         } catch (error) {
+            console.log(error)
+            Alert(error.response.data.success, error.response.data.message)
             return rejectWithValue(error.response.data);
         }
     }
@@ -158,6 +164,38 @@ export const adminLogin = createAsyncThunk(
                 withCredentials: true,
             });
             console.log('admin loggedin', response.data);
+
+            return response.data; // Assuming you want to return the response data
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
+export const getAllUsers = createAsyncThunk(
+    'admin/get/users',
+    async (type, { rejectWithValue }) => {
+        try {
+            const Url = type ? `/api/admin/get/users.php?type=${type}` : `/api/admin/get/users.php`;
+            const response = await axios.get(Url, {
+                withCredentials: true,
+            });
+            console.log('admin users', response.data);
+
+            return response.data; // Assuming you want to return the response data
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
+export const getAllDocuments = createAsyncThunk(
+    'admin/get/documents',
+    async (type, { rejectWithValue }) => {
+        try {
+            const Url = type ? `/api/admin/get/documents.php?type=${type}` : `/api/admin/get/documents.php`;
+            const response = await axios.get(Url, {
+                withCredentials: true,
+            });
+            console.log('admin documents', response.data);
 
             return response.data; // Assuming you want to return the response data
         } catch (error) {

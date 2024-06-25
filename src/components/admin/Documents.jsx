@@ -1,62 +1,59 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllUsers } from '../../redux/thunks'
+import { getAllDocuments } from '../../redux/thunks'
 import { Navbar, Select, Table } from 'flowbite-react'
 import { Link } from 'react-router-dom'
 
-const Users = () => {
+const Documents = () => {
     let admin = useSelector((x) => x.admin)
     let dispatch = useDispatch()
-    let getAllDocuments = (docType) => {
-        dispatch(getAllUsers(docType))
+    let getAllDocumentsHandler = (docType) => {
+        dispatch(getAllDocuments(docType))
     }
     useEffect(() => {
-        dispatch(getAllUsers(false))
+        getAllDocuments(false)
+       
     }, [])
-    useEffect(() => {
-        console.log('jatin', admin)
-    }, [admin])
-    let UsersFilterHandler = (e) => {
-        getAllDocuments(e.target.value)
+
+    let DocumentsFilterHandler = (e) => {
+        getAllDocumentsHandler(e.target.value)
     }
     return (
         <>
             <div className="overflow-auto h-screen">
                 <Navbar className='m-4' fluid rounded >
-                    <Navbar.Brand as={Link} href="https://flowbite-react.com">
-
-                        <span className="self-center whitespace-nowrapIi text-xl font-semibold dark:text-white">Users</span>
+                    <Navbar.Brand as={Link} href="/">
+                        <span className="self-center whitespace-nowrapIi text-xl font-semibold dark:text-white">Documents</span>
                     </Navbar.Brand>
                     <Navbar.Toggle />
-                    <Select className='w-fit ml-auto' name='userType' onChange={UsersFilterHandler} id="countries" required>
+                    <Select className='w-fit ml-auto' name='userType' onChange={DocumentsFilterHandler} id="countries" required>
                         <option value={''}> All</option>
-                        <option value={'client'}>Clients</option>
-                        <option value={'employee'}>Employees</option>
-
+                        <option value={'salesBill'}>Sales Bills</option>
+                        <option value={'purchaseBill'}> Purchase Bills</option>
+                        <option value={'other'}> Other Bills</option>
                     </Select>
                 </Navbar>
                 <div className='m-4'>
-                    {admin?.users ? <Table >
+                    {admin?.documents ? <Table >
                         <Table.Head>
                             <Table.HeadCell>Name</Table.HeadCell>
-                            <Table.HeadCell>Email</Table.HeadCell>
-                            <Table.HeadCell>Designation / Companey</Table.HeadCell>
-                            <Table.HeadCell>Type</Table.HeadCell>
+                            <Table.HeadCell>From Date - To Date</Table.HeadCell>
+                            <Table.HeadCell>Vendor</Table.HeadCell>
+                            <Table.HeadCell>Document Type</Table.HeadCell>
                             <Table.HeadCell>
-                                Actoins
+                                Actions
                             </Table.HeadCell>
                         </Table.Head>
                         <Table.Body className="divide-y">
                             {
-                                admin?.users?.map((x) => {
+                                admin?.documents?.map((x) => {
                                     return <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                                         <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                            {x.name}
+                                            {x.file.slice(24)}
                                         </Table.Cell>
-                                        <Table.Cell>{x.email}</Table.Cell>
-                                        <Table.Cell>{x.type == 'client' ? x.companey : x.designation}</Table.Cell>
+                                        <Table.Cell>{x.fromDate} - {x.toDate}</Table.Cell>
+                                        <Table.Cell>{x.vendor}</Table.Cell>
                                         <Table.Cell>{x.type}</Table.Cell>
-
                                         <Table.Cell>
                                             <Link className='mx-2' to={`/preview/${x.id}`}>Preview</Link>
                                             <a className='mx-2' href={`http://localhost/ca/api/user/get/document.php?id=${x.id}&download=true`} download>
@@ -66,8 +63,6 @@ const Users = () => {
                                     </Table.Row>
                                 })
                             }
-
-
                         </Table.Body>
                     </Table> : <h1 className='text-center'>No document To See <Link>Upload Your First</Link></h1>}
                 </div>
@@ -76,4 +71,4 @@ const Users = () => {
     )
 }
 
-export default Users
+export default Documents

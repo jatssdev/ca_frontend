@@ -5,8 +5,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        // target: 'http://account.meracacs.com',
-        target: 'http://localhost/ca',
+        target: 'http://account.meracacs.com',
+        // target: 'http://localhost/ca',
         changeOrigin: true,
         secure: false
       }

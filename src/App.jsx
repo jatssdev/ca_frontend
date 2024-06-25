@@ -14,14 +14,19 @@ import path from 'path'
 import UploadDocument from './components/user/UploadDocument'
 import AddNewUser from './components/admin/AddNewUser'
 import DocumentPreview from './components/user/DocumentPreview'
-import AdminLogin from './components/admin/AdminLogin'
-
+import Users from './components/admin/Users'
+import AdminDocuments from './components/admin/Documents'
+import Chart from './components/admin/Chart'
+import DashBoard from './components/admin/DashBoard'
+import Swal from 'sweetalert2'
+export let Alert = (success, msg) => {
+  return Swal.fire({
+    title: success ? "Success" : "Failed",
+    text: msg,
+    icon: success ? "success" : "error"
+  });
+}
 function App() {
-  let user = useSelector((x) => x.auth)
-  let docs = useSelector((x) => x.docs)
-  useEffect(() => {
-    console.log(docs)
-  }, [docs])
 
   const router = createBrowserRouter([
     {
@@ -43,8 +48,20 @@ function App() {
           element: <AdminLayout />,
           children: [
             {
+              path: '', element: <DashBoard />
+            },
+            {
               path: 'add', element: <AddNewUser />
-            }
+            },
+            {
+              path: 'users', element: <Users />
+            },
+            {
+              path: 'documents', element: <AdminDocuments />
+            },
+            {
+              path: 'chart', element: <Chart />
+            },
           ],
         },
         {

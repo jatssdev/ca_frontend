@@ -38,7 +38,7 @@ const Documents = () => {
                 <div className='m-4'>
                     {docs?.documents ? <Table >
                         <Table.Head>
-                            <Table.HeadCell>Product name</Table.HeadCell>
+                            <Table.HeadCell>Name</Table.HeadCell>
                             <Table.HeadCell>From Date - To Date</Table.HeadCell>
                             <Table.HeadCell>Vendor</Table.HeadCell>
                             <Table.HeadCell>Document Type</Table.HeadCell>

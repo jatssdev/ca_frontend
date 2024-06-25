@@ -1,6 +1,6 @@
 // src/features/auth/adminSlice.js
 import { createSlice } from '@reduxjs/toolkit';
-import { adminLogin, logoutUser } from './thunks';
+import { adminLogin, getAllDocuments, getAllUsers, logoutUser } from './thunks';
 // import { registerUser, loginUser, logoutUser, verifyUser } from '../thunk/authThunks';
 
 const initialState = {
@@ -8,6 +8,7 @@ const initialState = {
     loading: false,
     isAuth: false,
     users: [],
+    documents: [],
     message: null
 };
 
@@ -68,20 +69,32 @@ const adminSlice = createSlice({
             //     state.message = action.payload.message;
             //     console.log('veryre', action.payload)
             // })
-            .addCase(logoutUser.pending, (state) => {
+            .addCase(getAllUsers.pending, (state) => {
                 state.loading = true;
                 state.message = null;
             })
-            .addCase(logoutUser.fulfilled, (state, action) => {
+            .addCase(getAllUsers.fulfilled, (state, action) => {
                 state.loading = false;
-                state.user = null;
-                state.isAuth = false
+                state.users = action.payload.users;
                 state.message = action.payload.message;
             })
-            .addCase(logoutUser.rejected, (state, action) => {
+            .addCase(getAllUsers.rejected, (state, action) => {
                 state.loading = false;
-                state.user = null;
-                state.isAuth = false
+                state.users = [];
+                state.message = action.payload.message;
+            })
+            .addCase(getAllDocuments.pending, (state) => {
+                state.loading = true;
+                state.message = null;
+            })
+            .addCase(getAllDocuments.fulfilled, (state, action) => {
+                state.loading = false;
+                state.documents = action.payload.documents;
+                state.message = action.payload.message;
+            })
+            .addCase(getAllDocuments.rejected, (state, action) => {
+                state.loading = false;
+                state.documents = [];
                 state.message = action.payload.message;
             });
     },

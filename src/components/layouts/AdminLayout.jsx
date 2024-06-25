@@ -4,13 +4,16 @@ import { Header } from '../admin/Header'
 import { Outlet } from 'react-router-dom'
 import AdminSidebar from '../admin/Sidebar'
 import AdminLogin from '../admin/AdminLogin'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllDocuments, getAllUsers } from '../../redux/thunks'
 
 const AdminLayout = () => {
     let admin = useSelector((state) => state.admin)
+    let dispatch = useDispatch()
     useEffect(() => {
-        console.log('admi', admin)
-    })
+        dispatch(getAllDocuments(false))
+        dispatch(getAllUsers(false))
+    }, [])
     return (
         <>
             {admin?.isAuth ? <div>

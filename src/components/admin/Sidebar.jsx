@@ -26,7 +26,11 @@ export default function AdminSidebar() {
                             Add New User
                         </Sidebar.Item>
                     </NavLink>
-
+                    <NavLink to={`/admin/documents`}>
+                        <Sidebar.Item icon={HiViewBoards} >
+                            Documents
+                        </Sidebar.Item>
+                    </NavLink>
                 </Sidebar.ItemGroup>
             </Sidebar.Items>
         </Sidebar>
