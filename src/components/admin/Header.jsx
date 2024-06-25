@@ -19,7 +19,7 @@ export function Header() {
             </Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse>
-                <Dropdown label="User" dismissOnClick={false} >
+                <Dropdown label="Admin" dismissOnClick={false} >
 
                     <Dropdown.Item onClick={LogoutHandler}>Sign out</Dropdown.Item>
                 </Dropdown>

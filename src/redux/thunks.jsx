@@ -31,7 +31,7 @@ export const loginUser = createAsyncThunk(
             return response.data
 
         } catch (error) {
-            console.log(error)
+
             Alert(error.response.data.success, error.response.data.message)
             return rejectWithValue(error.response.data);
         }
@@ -47,10 +47,12 @@ export const verifyUser = createAsyncThunk(
                     Authorization: `${token}`,
                 },
             });
+            await Alert(response.data.success, response.data.message)
+            return response.data
 
 
-            return response.data;
         } catch (error) {
+            Alert(error.response.data.success, error.response.data.message)
             return rejectWithValue(error.response.data);
         }
     }
@@ -63,12 +65,10 @@ export const logoutUser = createAsyncThunk(
             const response = await axios.post('/api/user/logout.php', {}, {
                 withCredentials: true,
             });
-            // let token = response.data.token;
-            // console.log('log', response.data)
-            // dispatch(verifyUser(token))
-            console.log(response.data)
-            return response.data;
+            await Alert(response.data.success, response.data.message)
+            return response.data
         } catch (error) {
+            Alert(error.response.data.success, error.response.data.message)
             return rejectWithValue(error.response.data);
         }
     }
@@ -109,9 +109,11 @@ export const UploadDocuments = createAsyncThunk(
                 withCredentials: true,
             });
             console.log('uploaded', response.data);
+            await Alert(response.data.success, response.data.message)
             dispatch(GetDocuments(false))
-            return response.data; // Assuming you want to return the response data
+            return response.data
         } catch (error) {
+            Alert(error.response.data.success, error.response.data.message)
             return rejectWithValue(error.response.data);
         }
     }
@@ -132,8 +134,10 @@ export const addClient = createAsyncThunk(
             });
             console.log('added cli', response.data);
 
-            // return response.data; // Assuming you want to return the response data
+            await Alert(response.data.success, response.data.message)
+            return response.data
         } catch (error) {
+            Alert(error.response.data.success, error.response.data.message)
             return rejectWithValue(error.response.data);
         }
     }
@@ -149,8 +153,10 @@ export const addEmployee = createAsyncThunk(
             });
             console.log('added emp', response.data);
 
-            // return response.data; // Assuming you want to return the response data
+            await Alert(response.data.success, response.data.message)
+            return response.data
         } catch (error) {
+            Alert(error.response.data.success, error.response.data.message)
             return rejectWithValue(error.response.data);
         }
     }
@@ -165,8 +171,10 @@ export const adminLogin = createAsyncThunk(
             });
             console.log('admin loggedin', response.data);
 
-            return response.data; // Assuming you want to return the response data
+            await Alert(response.data.success, response.data.message)
+            return response.data
         } catch (error) {
+            Alert(error.response.data.success, error.response.data.message)
             return rejectWithValue(error.response.data);
         }
     }

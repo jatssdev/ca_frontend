@@ -29,31 +29,42 @@ const Chart = () => {
 
     return (
         <>
-            <PieChart
-                series={[
-                    {
-                        data: [
-                            { id: 0, value: users.client, label: 'Clients' },
-                            { id: 1, value: users.employee, label: 'Employees' },
-                        ],
-                    },
-                ]}
-                width={400}
-                height={200}
-            />
-            <PieChart
-                series={[
-                    {
-                        data: [
-                            { id: 0, value: bills.salesBill, label: 'Sales Bills' },
-                            { id: 1, value: bills.purchaseBill, label: 'Purchase Bills' },
-                            { id: 2, value: bills.other, label: 'other Bills' },
-                        ],
-                    },
-                ]}
-                width={400}
-                height={200}
-            />
+            <section className='flex w-full gap-3'>
+                <div className='w-1/2 bg-[rgba(250,250,250,1)] shadow p-4' data-aos="fade-right">
+                    <h3 className='font-bold text-xl mb-3'>Total Users : {admin?.users?.length}</h3>
+
+                    <PieChart
+
+                        series={[
+                            {
+                                data: [
+                                    { id: 0, value: users.client, label: 'Clients' },
+                                    { id: 1, value: users.employee, label: 'Employees' },
+                                ],
+                            },
+                        ]}
+                        width={500}
+                        height={250}
+                    />
+                </div>
+                <div className='w-1/2 bg-[rgba(250,250,250,1)] shadow  p-4' data-aos="fade-left">
+                    <h3 className='font-bold text-xl mb-3'>Total Documents : {admin?.documents?.length}</h3>
+
+                    <PieChart
+                        series={[
+                            {
+                                data: [
+                                    { id: 0, value: bills.salesBill, label: 'Sales Bills' },
+                                    { id: 1, value: bills.purchaseBill, label: 'Purchase Bills' },
+                                    { id: 2, value: bills.other, label: 'other Bills' },
+                                ],
+                            },
+                        ]}
+                        width={550}
+                        height={250}
+                    />
+                </div>
+            </section>
 
         </>
     )

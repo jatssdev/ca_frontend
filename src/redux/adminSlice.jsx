@@ -45,7 +45,7 @@ const adminSlice = createSlice({
                 state.loading = false;
                 state.message = action.payload.message;
                 state.admin = action.payload.user
-                state.isAuth = true
+                state.isAuth = action.payload.success 
             })
             .addCase(adminLogin.rejected, (state, action) => {
                 state.loading = false;

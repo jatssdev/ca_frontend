@@ -19,6 +19,9 @@ import AdminDocuments from './components/admin/Documents'
 import Chart from './components/admin/Chart'
 import DashBoard from './components/admin/DashBoard'
 import Swal from 'sweetalert2'
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 export let Alert = (success, msg) => {
   return Swal.fire({
     title: success ? "Success" : "Failed",
@@ -27,6 +30,10 @@ export let Alert = (success, msg) => {
   });
 }
 function App() {
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
 
   const router = createBrowserRouter([
     {

@@ -40,8 +40,8 @@ const authSlice = createSlice({
             })
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.loading = false;
-                console.log('barabar')
-                Alert(true, action.payload.message)
+                
+                
 
             })
             .addCase(loginUser.rejected, (state, action) => {

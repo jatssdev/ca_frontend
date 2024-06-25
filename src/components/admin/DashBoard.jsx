@@ -3,7 +3,7 @@ import Chart from './Chart'
 
 const DashBoard = () => {
     return (
-        <div>
+        <div className='p-5'>
             <Chart />
         </div>
     )
