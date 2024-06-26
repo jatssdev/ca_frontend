@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetDocuments } from '../../redux/thunks'
 import { Navbar, Select, Table } from 'flowbite-react'
 import { Link } from 'react-router-dom'
 
 const Documents = () => {
+
     let docs = useSelector((x) => x.docs)
     let dispatch = useDispatch()
     let getAllDocuments = (docType) => {
@@ -36,7 +37,7 @@ const Documents = () => {
                     </Select>
                 </Navbar>
                 <div className='m-4'>
-                    {docs?.documents ? <Table >
+                    {docs?.documents ? <Table  >
                         <Table.Head>
                             <Table.HeadCell>Name</Table.HeadCell>
                             <Table.HeadCell>From Date - To Date</Table.HeadCell>
@@ -49,8 +50,9 @@ const Documents = () => {
                         </Table.Head>
                         <Table.Body className="divide-y">
                             {
-                                docs?.documents?.map((x) => {
-                                    return <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                docs?.documents?.map((x, index) => {
+                                    const aosPos = index % 2 === 0 ? 'fade-right' : 'fade-left';
+                                    return <Table.Row data-aos={aosPos} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                                         <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                                             {x.file.slice(24)}
                                         </Table.Cell>
