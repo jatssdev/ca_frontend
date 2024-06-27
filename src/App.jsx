@@ -32,7 +32,7 @@ export let Alert = (success, msg) => {
 function App() {
   useEffect(() => {
     AOS.init();
-    AOS.refresh();
+
   }, []);
 
   const router = createBrowserRouter([

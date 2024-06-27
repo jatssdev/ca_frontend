@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GetDocuments } from '../../redux/thunks'
 import { Navbar, Select, Table } from 'flowbite-react'
 import { Link } from 'react-router-dom'
+import Aos from 'aos'
 
 const Documents = () => {
 
@@ -14,9 +15,7 @@ const Documents = () => {
     useEffect(() => {
         getAllDocuments(false)
     }, [])
-    useEffect(() => {
-        console.log('jatin', docs)
-    }, [docs])
+
     let DocumentsFilterHandler = (e) => {
         getAllDocuments(e.target.value)
     }
@@ -51,8 +50,9 @@ const Documents = () => {
                         <Table.Body className="divide-y">
                             {
                                 docs?.documents?.map((x, index) => {
-                                    const aosPos = index % 2 === 0 ? 'fade-right' : 'fade-left';
-                                    return <Table.Row data-aos={aosPos} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+
+                                    // const aosPos = index % 2 === 0 ? 'fade-up' : 'fade-left';
+                                    return <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                                         <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                                             {x.file.slice(24)}
                                         </Table.Cell>

@@ -25,30 +25,36 @@ const AddNewUser = () => {
             dispatch(addEmployee({ ...user, password: pass }))
     }
     return (
-        <div className='items-center h-screen overflow-auto bg-red-200'>
+        <div className='items-center h-screen overflow-auto'>
 
-            <div className="my-16 w-full"> <Card className="w-1/3 mx-auto">
+            <div className="my-16 w-full"> <Card className="w-2/3 mx-auto">
                 <form encType="multipart/form-data" onSubmit={handleSubmit} className="flex flex-col gap-4">
-                    <div>
-                        <Select className='w-fit ml-auto' name='type' onChange={handleInputChange} id="countries" required>
+                    <div className=''>
+                        <div className="mb-2 block">
+                            <Label htmlFor="name" value="User Type" />
+                        </div>
+
+                        <Select className='w-fit' name='type' onChange={handleInputChange} id="countries" required>
                             <option value="">Select User Type</option>
                             <option value={'client'}>Client</option>
                             <option value={'employee'}>Employee</option>
                         </Select>
                     </div>
-                    <div>
-                        <div className="mb-2 block">
-                            <Label htmlFor="name" value="Name" />
+                    <div className='flex gap-3'>
+                        <div className='w-1/2'>
+                            <div className="mb-2 block">
+                                <Label htmlFor="name" value="Name" />
+                            </div>
+                            <TextInput onChange={handleInputChange} id="name" name="name" type="text" placeholder="Name" required />
                         </div>
-                        <TextInput onChange={handleInputChange} id="name" name="name" type="text" placeholder="Name" required />
-                    </div>
 
 
-                    <div>
-                        <div className="mb-2 block">
-                            <Label htmlFor="email" value="Email" />
+                        <div className='w-1/2'>
+                            <div className="mb-2 block">
+                                <Label htmlFor="email" value="Email" />
+                            </div>
+                            <TextInput onChange={handleInputChange} id="email" name="email" type="text" placeholder="Email" required />
                         </div>
-                        <TextInput onChange={handleInputChange} id="email" name="email" type="text" placeholder="Email" required />
                     </div>
                     <div>
                         <div className="mb-2 block">
@@ -56,29 +62,33 @@ const AddNewUser = () => {
                         </div>
                         <TextInput onChange={handleInputChange} id="mobile" name="mobile" type="text" placeholder="Mobile" required />
                     </div>
-                    <div>
-                        <div className="mb-2 block">
-                            <Label htmlFor="addr" value="Address" />
+                    <div className='flex gap-3'>
+                        <div className='w-1/2'>
+                            <div className="mb-2 block">
+                                <Label htmlFor="addr" value="Address" />
+                            </div>
+                            <TextInput onChange={handleInputChange} id="addr" name="address" type="text" placeholder="Address" required />
                         </div>
-                        <TextInput onChange={handleInputChange} id="addr" name="address" type="text" placeholder="Address" required />
+                        <div className='w-1/2'>
+                            <div className="mb-2 block">
+                                <Label htmlFor="state" value="State" />
+                            </div>
+                            <TextInput onChange={handleInputChange} id="state" name="state" type="text" placeholder="State" required />
+                        </div>
                     </div>
-                    <div>
-                        <div className="mb-2 block">
-                            <Label htmlFor="state" value="State" />
+                    <div className='flex gap-3'>
+                        <div className='w-1/2'>
+                            <div className="mb-2 block">
+                                <Label htmlFor="city" value="City" />
+                            </div>
+                            <TextInput onChange={handleInputChange} id="city" name="city" type="text" placeholder="City" required />
                         </div>
-                        <TextInput onChange={handleInputChange} id="state" name="state" type="text" placeholder="State" required />
-                    </div>
-                    <div>
-                        <div className="mb-2 block">
-                            <Label htmlFor="city" value="City" />
+                        <div className='w-1/2'>
+                            <div className="mb-2 block">
+                                <Label htmlFor="zip" value="Zip Code" />
+                            </div>
+                            <TextInput onChange={handleInputChange} id="zip" name="zipcode" type="text" placeholder="Zip Code" required />
                         </div>
-                        <TextInput onChange={handleInputChange} id="city" name="city" type="text" placeholder="City" required />
-                    </div>
-                    <div>
-                        <div className="mb-2 block">
-                            <Label htmlFor="zip" value="Zip Code" />
-                        </div>
-                        <TextInput onChange={handleInputChange} id="zip" name="zipcode" type="text" placeholder="Zip Code" required />
                     </div>
                     {
                         user.type == 'client' && <div>
