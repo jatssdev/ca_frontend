@@ -22,7 +22,7 @@ export const loginUser = createAsyncThunk(
     'auth/loginUser',
     async (credentials, { rejectWithValue, dispatch }) => {
         try {
-            const response = await axios.post('https://account.meracacs.comhttps://account.meracacs.com/front/user/login.php', credentials);
+            const response = await axios.post('https://account.meracacs.com/front/user/login.php', credentials);
             // const token = response.data.token;
             // Dispatch verifyUser thunk with the token
             // dispatch(verifyUser(token))
@@ -62,7 +62,7 @@ export const logoutUser = createAsyncThunk(
     'auth/logoutUser',
     async (_, { rejectWithValue, dispatch }) => {
         try {
-            const response = await axios.post('https://account.meracacs.com/front/user/logout.php', {}, {
+            const response = await axios.get('https://account.meracacs.com/front/user/logout.php', {}, {
                 withCredentials: true,
             });
             await Alert(response.data.success, response.data.message)
