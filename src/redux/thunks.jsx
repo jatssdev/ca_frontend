@@ -22,7 +22,7 @@ export const loginUser = createAsyncThunk(
     'auth/loginUser',
     async (credentials, { rejectWithValue, dispatch }) => {
         try {
-            const response = await axios.post('/front/user/login.php', credentials);
+            const response = await axios.post('https://account.meracacs.com/front/user/login.php', credentials);
             // const token = response.data.token;
             // Dispatch verifyUser thunk with the token
             // dispatch(verifyUser(token))
