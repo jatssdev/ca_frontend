@@ -69,8 +69,6 @@ const Documents = () => {
                                     </Table.Row>
                                 })
                             }
-
-
                         </Table.Body>
                     </Table> : <h1 className='text-center'>No document To See <Link>Upload Your First</Link></h1>}
                 </div>

@@ -21,6 +21,7 @@ import DashBoard from './components/admin/DashBoard'
 import Swal from 'sweetalert2'
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Dashboard from './components/user/Dashboard'
 
 export let Alert = (success, msg) => {
   return Swal.fire({
@@ -76,6 +77,10 @@ function App() {
           element: <ClientLayout />,
           children: [
             {
+              path: '',
+              element: <Dashboard />
+            },
+            {
               path: 'documents',
               element: <Documents />
             },
@@ -90,6 +95,10 @@ function App() {
           path: 'employee',
           element: <EmployeeLayout />,
           children: [
+            {
+              path: '',
+              element: <Dashboard />
+            },
             {
               path: 'documents',
               element: <Documents />

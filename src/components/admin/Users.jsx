@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllUsers } from '../../redux/thunks'
+import { deleteUser, getAllUsers } from '../../redux/thunks'
 import { Navbar, Select, Table } from 'flowbite-react'
 import { Link } from 'react-router-dom'
 
@@ -19,6 +19,9 @@ const Users = () => {
     let UsersFilterHandler = (e) => {
         getAllDocuments(e.target.value)
     }
+    const DeleteUser = (id) => {
+        dispatch(deleteUser(id))
+    }
     return (
         <>
             <div className="overflow-auto h-screen">
@@ -32,7 +35,6 @@ const Users = () => {
                         <option value={''}> All</option>
                         <option value={'client'}>Clients</option>
                         <option value={'employee'}>Employees</option>
-
                     </Select>
                 </Navbar>
                 <div className='m-4'>
@@ -58,10 +60,12 @@ const Users = () => {
                                         <Table.Cell>{x.type}</Table.Cell>
 
                                         <Table.Cell>
-                                            <Link className='mx-2' to={`/preview/${x.id}`}>Preview</Link>
+                                            {/* <Link className='mx-2' to={`/preview/${x.id}`}>Preview</Link>
                                             <a className='mx-2' href={`http://localhost/ca/api/user/get/document.php?id=${x.id}&download=true`} download>
                                                 Download
-                                            </a>
+                                            </a> */}
+                                            <button onClick={() => DeleteUser(x.id)} className='mr-1 bg-red-400 px-2 py-1 rounded-sm text-white'>Delete</button>
+                                            {/* <button className='bg-green-400 px-2 py-1 rounded-sm text-white'>Edit</button> */}
                                         </Table.Cell>
                                     </Table.Row>
                                 })

@@ -1,6 +1,6 @@
 // src/features/auth/adminSlice.js
 import { createSlice } from '@reduxjs/toolkit';
-import { adminLogin, getAllDocuments, getAllUsers, logoutUser } from './thunks';
+import { adminLogin, deleteDocument, deleteUser, getAllDocuments, getAllUsers, logoutUser } from './thunks';
 // import { registerUser, loginUser, logoutUser, verifyUser } from '../thunk/authThunks';
 
 const initialState = {
@@ -96,7 +96,33 @@ const adminSlice = createSlice({
                 state.loading = false;
                 state.documents = [];
                 state.message = action.payload.message;
-            });
+            })
+            .addCase(deleteDocument.pending, (state) => {
+                state.loading = true;
+                state.message = null;
+            })
+            .addCase(deleteDocument.fulfilled, (state, action) => {
+                state.loading = false;
+                state.message = action.payload.message;
+            })
+            .addCase(deleteDocument.rejected, (state, action) => {
+                state.loading = false;
+
+                state.message = action.payload.message;
+            })
+            .addCase(deleteUser.pending, (state) => {
+                state.loading = true;
+                state.message = null;
+            })
+            .addCase(deleteUser.fulfilled, (state, action) => {
+                state.loading = false;
+                state.message = action.payload.message;
+            })
+            .addCase(deleteUser.rejected, (state, action) => {
+                state.loading = false;
+
+                state.message = action.payload.message;
+            })
     },
 });
 

@@ -2,7 +2,8 @@ import React, { useEffect } from 'react'
 import { Header } from '../user/Header'
 import UserSidebar from '../user/Sidebar'
 import { Outlet, useLocation, useNavigate } from 'react-router'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { GetDocuments } from '../../redux/thunks'
 
 const ClientLayout = () => {
     let user = useSelector((state) => state.auth)
@@ -15,6 +16,7 @@ const ClientLayout = () => {
             redirect('/login')
         }
     })
+
     return (
         <>
             <Header />

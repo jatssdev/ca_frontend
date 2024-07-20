@@ -9,7 +9,7 @@ export const registerUser = createAsyncThunk(
     'auth/register',
     async (userData, { rejectWithValue }) => {
         try {
-            const response = await axios.post('https://account.meracacs.com/front/user/register', userData);
+            const response = await axios.post('/api/user/register', userData);
             // console.log(response.data)
             return response.data;
         } catch (err) {
@@ -22,7 +22,7 @@ export const loginUser = createAsyncThunk(
     'auth/loginUser',
     async (credentials, { rejectWithValue, dispatch }) => {
         try {
-            const response = await axios.post('https://account.meracacs.com/front/user/login.php', credentials);
+            const response = await axios.post('/api/user/login.php', credentials);
             // const token = response.data.token;
             // Dispatch verifyUser thunk with the token
             // dispatch(verifyUser(token))
@@ -42,7 +42,7 @@ export const verifyUser = createAsyncThunk(
     'auth/verifyUser',
     async (token, { rejectWithValue }) => {
         try {
-            const response = await axios.get('https://account.meracacs.com/front/user/auth', {
+            const response = await axios.get('/api/user/auth', {
                 headers: {
                     Authorization: `${token}`,
                 },
@@ -62,7 +62,7 @@ export const logoutUser = createAsyncThunk(
     'auth/logoutUser',
     async (_, { rejectWithValue, dispatch }) => {
         try {
-            const response = await axios.get('https://account.meracacs.com/front/user/logout.php', {}, {
+            const response = await axios.get('/api/user/logout.php', {}, {
                 withCredentials: true,
             });
             await Alert(response.data.success, response.data.message)
@@ -84,7 +84,7 @@ export const GetDocuments = createAsyncThunk(
     'documents/get',
     async (type, { rejectWithValue, dispatch }) => {
         try {
-            let Url = type ? `https://account.meracacs.com/front/user/get/documents.php?type=${type}` : 'https://account.meracacs.com/front/user/get/documents.php'
+            let Url = type ? `/api/user/get/documents.php?type=${type}` : '/api/user/get/documents.php'
             const response = await axios.get(Url, {
                 withCredentials: true,
             });
@@ -127,7 +127,7 @@ export const addClient = createAsyncThunk(
     'users/add/client',
     async (data, { rejectWithValue }) => {
         try {
-            const Url = `https://account.meracacs.com/front/admin/add/client.php`;
+            const Url = `/api/admin/add/client.php`;
             const response = await axios.post(Url, data, {
 
                 withCredentials: true,
@@ -146,7 +146,7 @@ export const addEmployee = createAsyncThunk(
     'users/add/employee',
     async (data, { rejectWithValue }) => {
         try {
-            const Url = `https://account.meracacs.com/front/admin/add/employee.php`;
+            const Url = `/api/admin/add/employee.php`;
             const response = await axios.post(Url, data, {
 
                 withCredentials: true,
@@ -165,7 +165,7 @@ export const adminLogin = createAsyncThunk(
     'admin/login',
     async (data, { rejectWithValue }) => {
         try {
-            const Url = `https://account.meracacs.com/front/admin/login.php`;
+            const Url = `/api/admin/login.php`;
             const response = await axios.post(Url, data, {
                 withCredentials: true,
             });
@@ -183,7 +183,7 @@ export const getAllUsers = createAsyncThunk(
     'admin/get/users',
     async (type, { rejectWithValue }) => {
         try {
-            const Url = type ? `https://account.meracacs.com/front/admin/get/users.php?type=${type}` : `https://account.meracacs.com/front/admin/get/users.php`;
+            const Url = type ? `/api/admin/get/users.php?type=${type}` : `/api/admin/get/users.php`;
             const response = await axios.get(Url, {
                 withCredentials: true,
             });
@@ -199,7 +199,7 @@ export const getAllDocuments = createAsyncThunk(
     'admin/get/documents',
     async (type, { rejectWithValue }) => {
         try {
-            const Url = type ? `https://account.meracacs.com/front/admin/get/documents.php?type=${type}` : `https://account.meracacs.com/front/admin/get/documents.php`;
+            const Url = type ? `/api/admin/get/documents.php?type=${type}` : `/api/admin/get/documents.php`;
             const response = await axios.get(Url, {
                 withCredentials: true,
             });
@@ -207,6 +207,46 @@ export const getAllDocuments = createAsyncThunk(
 
             return response.data; // Assuming you want to return the response data
         } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
+export const deleteDocument = createAsyncThunk(
+    'admin/delete/document',
+    async (id, { rejectWithValue, dispatch }) => {
+
+        try {
+            const Url = `/api/admin/delete/document.php?id=${id}`;
+            const response = await axios.delete(Url, {
+                withCredentials: true,
+            });
+            console.log('admin documents', response.data);
+            dispatch(getAllDocuments())
+
+            await Alert(response.data.success, response.data.message)
+            return response.data
+        } catch (error) {
+            Alert(error.response.data.success, error.response.data.message)
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
+export const deleteUser = createAsyncThunk(
+    'admin/delete/user',
+    async (id, { rejectWithValue, dispatch }) => {
+
+        try {
+            const Url = `/api/admin/delete/user.php?id=${id}`;
+            const response = await axios.delete(Url, {
+                withCredentials: true,
+            });
+            console.log('admin documents', response.data);
+            dispatch(getAllUsers())
+
+            await Alert(response.data.success, response.data.message)
+            return response.data
+        } catch (error) {
+            Alert(error.response.data.success, error.response.data.message)
             return rejectWithValue(error.response.data);
         }
     }
