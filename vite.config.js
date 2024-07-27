@@ -3,10 +3,12 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   server: {
+    host: true,
+    port: 5464,
     proxy: {
       '/api': {
-        // target: 'https://account.meracacs.com/',
-        target: 'http://localhost/ca',
+        target: 'https://account.meracacs.com/',
+        // target: 'http://localhost/ca',
         changeOrigin: true,
         secure: true
       }

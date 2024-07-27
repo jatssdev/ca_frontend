@@ -22,7 +22,8 @@ import Swal from 'sweetalert2'
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Dashboard from './components/user/Dashboard'
-
+import { BallTriangle } from 'react-loader-spinner';
+import { Lines } from 'react-preloaders'
 export let Alert = (success, msg) => {
   return Swal.fire({
     title: success ? "Success" : "Failed",
@@ -31,6 +32,21 @@ export let Alert = (success, msg) => {
   });
 }
 function App() {
+  let [loading, setLoading] = useState(false)
+
+  let user = useSelector((x) => x.auth)
+  let docs = useSelector((x) => x.docs)
+  let admin = useSelector((x) => x.admin)
+
+
+  useEffect(() => {
+
+    if (admin.loading || user.loading || docs.loading) {
+      setLoading(true)
+    } else {
+      setLoading(false)
+    }
+  }, [user, admin, docs])
   useEffect(() => {
     AOS.init();
 
@@ -116,6 +132,21 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
+      <Lines />
+      {
+        loading && <div className="h-screen w-screen flex items-center justify-center fixed top-0 left-0 bg-[rgba(0,0,0,0.5)]">
+          <BallTriangle
+            height={100}
+            width={100}
+            radius={5}
+            color="#4fa94d"
+            ariaLabel="ball-triangle-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+          />
+        </div>
+      }
     </>
   )
 }

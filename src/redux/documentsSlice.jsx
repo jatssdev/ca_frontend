@@ -22,8 +22,8 @@ const DocsSlice = createSlice({
 
             })
             .addCase(GetDocuments.fulfilled, (state, action) => {
-                state.loading = false;
                 state.documents = action.payload.documents;
+                state.loading = false;
             })
             .addCase(GetDocuments.rejected, (state, action) => {
                 state.loading = false;
